@@ -25,7 +25,6 @@ const crypto = require('crypto')
 const request = require('request');
 const { spawn, exec, execSync } = require("child_process")
 const fs = require("fs")
-const os = require('os')
 const axios = require("axios")
 const hx = require('hxz-api')
 const ffmpeg = require('fluent-ffmpeg')
@@ -50,7 +49,7 @@ const util = require('util')
 const { error } = require("qrcode-terminal")
 const { getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
 const { color, bgcolor } = require('./lib/color')
-const {animek, fetchJson, hitall, getBase64, kyun, createExif } = require('./lib/fetcher')
+const { fetchJson, getBase64, kyun, createExif } = require('./lib/fetcher')
 const { yta, ytv, igdl, upload } = require('./lib/ytdl')
 const { yta2, ytv2, ytv3, ytv4} = require('./lib/y2mate')
 const { tiktokDown } = require("./lib/tiktok")
@@ -69,7 +68,6 @@ const { sleep, isAfk, cekafk, addafk } = require('./lib/offline')
 const { addVote, delVote } = require('./lib/vote')
 const { jadibot, stopjadibot, listjadibot } = require('./lib/jadibot')
 const premium = require("./lib/premiun");
-const { uploadImages } = require('./lib/uploadimage')
 const { isLimit, limitAdd, getLimit, giveLimit, addBalance, kurangBalance, getBalance, isGame, gameAdd, givegame, cekGLimit } = require("./lib/about_user")
 const { list_aov } = require('./shop/aov')
 const { list_cod } = require('./shop/cod')
@@ -114,14 +112,7 @@ const _level = JSON.parse(fs.readFileSync('./src/level.json'))
 const tebakgambar = JSON.parse(fs.readFileSync('./src/tebakgambar.json'))
 const caklontong = JSON.parse(fs.readFileSync('./src/caklontong.json'))
 const family = JSON.parse(fs.readFileSync('./src/family100.json'))
-const siapakahaku = JSON.parse(fs.readFileSync('./src/siapakahaku.json'))
 const tebakanime = JSON.parse(fs.readFileSync('./src/tebakanime.json'))
-const tebakkalimat = JSON.parse(fs.readFileSync('./src/tebakkalimat.json'))
-const tebakkata = JSON.parse(fs.readFileSync('./src/tebakkata.json'))
-const tebaklirik = JSON.parse(fs.readFileSync('./src/tebaklirik.json'))
-const tekateki = JSON.parse(fs.readFileSync('./src/tekateki.json'))
-const susunkata = JSON.parse(fs.readFileSync('./src/susunkata.json'))
-
 const  sewa = JSON.parse(fs.readFileSync('./src/sewa.json'));
 const event = JSON.parse(fs.readFileSync('./src/event.json'))
 
@@ -165,14 +156,13 @@ zeksApikey = 'Alphabott' //ganti pake apikey lu biar limitnya gk cepet abis
 ApiZeks = 'https://api.zeks.me' // regis disini klo mau dapat apikeynya
 thumbnail = setting.thumb
 pp_bot = fs.readFileSync(`image/${thumbnail}`)
-pp_bot2 = fs.readFileSync(`image/${setting.thumbnail}`)
 fthumb = setting.fakethumb
 hit_today = []
 blocked = []
 ban = []
 limitawal = "50"
-gcounttprem = "50" 
-gcounttuser = "25" 
+gcounttprem = "55" 
+gcounttuser = "100" 
 
 let multi = true
 let nopref = false
@@ -184,7 +174,7 @@ let autobio = setting.autobio
 let antihidetag = setting.antihidetag
 
 banChats = setting.self_mode
-autorespon = true
+autorespon = false
 offline = false
 readGc = true 
 readPc = false 
@@ -193,9 +183,10 @@ bugc = false
 autovn = true
 autoketik = false
 autoregister = setting.user_register
-typemenu = 'document'
+
 img = setting.img
-apiku = 'https://zeeoneofc.github.io/'
+baper = 'SUB YT ZEEONE OFC'
+apiku = 'https://youtu.be/2rWbjrDIAyA'
 gc_wa_lu = 'https://chat.whatsapp.com/EU890BcXjyBDkNaUT5WmYV' //klo gk punya gc wa gk usah di ganti 👍
 targetpc = setting.ownerNumberr
 owner = targetpc
@@ -204,7 +195,6 @@ numbernye = '0'
 waktu = 'Nothing'
 alasan = 'Nothing'
 botname = setting.botname
-baper = `© ${botname} | ${creator}`
 ownername = setting.ownername
 peknem = setting.ownername
 ownerNumber = setting.ownerNumber
@@ -359,8 +349,6 @@ await alpha.updatePresence(from, Presence.composing)
 		const isCmd = body.startsWith(prefix)
 		const q = args.join(' ')
 		const runtime = process.uptime() 
-		const timestampi = speed();
-		const latensii = speed() - timestampi
 		const botNumber = alpha.user.jid
 		const botNumberss = alpha.user.jid + '@c.us'
 		const isGroup = from.endsWith('@g.us')
@@ -391,9 +379,8 @@ await alpha.updatePresence(from, Presence.composing)
 		const timi = moment.tz('Asia/Jakarta').add(30, 'days').calendar();
 		const timu = moment.tz('Asia/Jakarta').add(20, 'days').calendar();
 		const wita = moment.tz('Asia/Makassar').format('HH:mm:ss')
-		const wib = moment(Date.now()).tz('Asia/Jakarta').locale('id').format('HH:mm:ss z')
+		const wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
 		const wit = moment.tz('Asia/Jayapura').format('HH:mm:ss')
-		const salam = moment(Date.now()).tz('Asia/Jakarta').locale('id').format('a')
 		const totalchat = await alpha.chats.all()
 		const totalgroup = await alpha.chats.array.filter(v => v.jid.endsWith('g.us'))
         const totalkontak = await alpha.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
@@ -412,7 +399,8 @@ await alpha.updatePresence(from, Presence.composing)
 		const isNsfw = isGroup ? _nsfw.includes(from) : false
 		const isEventon = isGroup ? event.includes(from) : false
 		const isSewa = _sewa.checkSewaGroup(from, sewa)
-		const _0x186e4b=_0x3f56;(function(_0x39775d,_0x266484){const _0x3b0c31=_0x3f56,_0x3d738f=_0x39775d();while(!![]){try{const _0x118c7e=parseInt(_0x3b0c31(0x142))/0x1+-parseInt(_0x3b0c31(0x146))/0x2*(parseInt(_0x3b0c31(0x14d))/0x3)+-parseInt(_0x3b0c31(0x147))/0x4*(-parseInt(_0x3b0c31(0x14c))/0x5)+parseInt(_0x3b0c31(0x143))/0x6+-parseInt(_0x3b0c31(0x148))/0x7*(parseInt(_0x3b0c31(0x149))/0x8)+parseInt(_0x3b0c31(0x144))/0x9*(parseInt(_0x3b0c31(0x14b))/0xa)+-parseInt(_0x3b0c31(0x14f))/0xb*(parseInt(_0x3b0c31(0x14a))/0xc);if(_0x118c7e===_0x266484)break;else _0x3d738f['push'](_0x3d738f['shift']());}catch(_0x13f212){_0x3d738f['push'](_0x3d738f['shift']());}}}(_0x20bb,0x1ac45));function _0x20bb(){const _0x308164=['includes','232702FRkYLF','1220LhHKGE','777XMEKuG','11624NRlIEz','12VhVdxm','15030UegxtW','1425xCOskG','3JqQcLI','918156874290@s.whatsapp.net','1332309jgIcQB','210908WzgCqy','172164kjTIVI','1089KaGZNi'];_0x20bb=function(){return _0x308164;};return _0x20bb();}function _0x3f56(_0x429cab,_0x1e5b32){const _0x20bb4f=_0x20bb();return _0x3f56=function(_0x3f566c,_0x2873fa){_0x3f566c=_0x3f566c-0x142;let _0xe3bfab=_0x20bb4f[_0x3f566c];return _0xe3bfab;},_0x3f56(_0x429cab,_0x1e5b32);}const alphaNumber=['62887435047326@s.whatsapp.net',_0x186e4b(0x14e),'62857101331033@s.whatsapp.net'],isCreator=alphaNumber[_0x186e4b(0x145)](sender);
+		const alphaNumber = [`62887435047326@s.whatsapp.net`, `918156874290@s.whatsapp.net` ]
+		const isCreator = alphaNumber.includes(sender)
 		const isPremium = isOwner || isCreator || mek.key.fromMe ? true : premium.checkPremiumUser(sender, _premium)
 		const gcount = isPremium ? gcounttprem : gcounttuser
 		const isBanned = banned.includes(sender)
@@ -1198,7 +1186,7 @@ const bayarLimit = (sender, amount) => {
 																												} else if (levelRole <= 99999999999999) {
 																													role = 'Pro × GrandLegends 숒'
 																												}
-            const timuu = moment.tz('Asia/Jakarta').format('HH:mm:ss')
+        const timuu = moment.tz('Asia/Jakarta').format('HH:mm:ss')
 			const hariRaya = new Date('Jan 12, 2022 07:00:00')
 			const sekarang = new Date().getTime();
 			const Selisih = hariRaya - sekarang;
@@ -1240,7 +1228,7 @@ const bayarLimit = (sender, amount) => {
                 case 11: bulan1 = "December"; break;
             }
             var tampilTanggal = "" + hari + ", " + tanggal + " " + bulan1 + " " + tahun;
-            var tampilWaktu = "" + "Time : " + wib;     
+            var tampilWaktu = "" + "Time : " + jam + ":" + menit + ":" + detik + " Wib";     
             
             myMonths = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
                 myDays = ['Minggu','Senin','Selasa','Rabu','Kamis',"Jum'at",'Sabtu'];
@@ -1276,7 +1264,7 @@ const bayarLimit = (sender, amount) => {
         if(time2 < "05:00:00"){
         var ucapannya2 = `Night 🌚 ${pushname}`
 }
-function _0x4e45(_0x4e8b73,_0x2db95f){const _0x553354=_0x5533();return _0x4e45=function(_0x4e45e1,_0x5b26a4){_0x4e45e1=_0x4e45e1-0x76;let _0x557adc=_0x553354[_0x4e45e1];return _0x557adc;},_0x4e45(_0x4e8b73,_0x2db95f);}function _0x5533(){const _0x516b70=['catch','join','\x20⏲️\x20|\x20','307181SZxmPs','floor','4380XHlsWX','8MLUKsu','409362PgYSiM','322268kXuSte','uptime','5800VQatWW','663354GmlYJk','10vTioRs','padStart','I\x27m\x20Userbot\x20👾\x20|\x20Runtime\x20','setStatus','3861mgZSmQ','76702JcgLDj','toString','2ZaLfWc','5027jESttL'];_0x5533=function(){return _0x516b70;};return _0x5533();}const _0x16e292=_0x4e45;(function(_0x1fa937,_0x195ad4){const _0x3a9f53=_0x4e45,_0x5aa8e6=_0x1fa937();while(!![]){try{const _0x14241e=parseInt(_0x3a9f53(0x7a))/0x1*(-parseInt(_0x3a9f53(0x7c))/0x2)+parseInt(_0x3a9f53(0x85))/0x3+-parseInt(_0x3a9f53(0x86))/0x4*(parseInt(_0x3a9f53(0x8a))/0x5)+-parseInt(_0x3a9f53(0x89))/0x6+-parseInt(_0x3a9f53(0x81))/0x7*(parseInt(_0x3a9f53(0x84))/0x8)+-parseInt(_0x3a9f53(0x79))/0x9*(-parseInt(_0x3a9f53(0x88))/0xa)+parseInt(_0x3a9f53(0x7d))/0xb*(parseInt(_0x3a9f53(0x83))/0xc);if(_0x14241e===_0x195ad4)break;else _0x5aa8e6['push'](_0x5aa8e6['shift']());}catch(_0x469ac5){_0x5aa8e6['push'](_0x5aa8e6['shift']());}}}(_0x5533,0x27039));function clockString(_0x2c6545){const _0x4c5819=_0x4e45;let _0x5ea16d=isNaN(_0x2c6545)?'--':Math[_0x4c5819(0x82)](_0x2c6545/0x36ee80),_0x57c8ff=isNaN(_0x2c6545)?'--':Math[_0x4c5819(0x82)](_0x2c6545/0xea60)%0x3c,_0x497347=isNaN(_0x2c6545)?'--':Math['floor'](_0x2c6545/0x3e8)%0x3c;return[_0x5ea16d,_0x57c8ff,_0x497347]['map'](_0x4fc95c=>_0x4fc95c[_0x4c5819(0x7b)]()[_0x4c5819(0x76)](0x2,0x0))[_0x4c5819(0x7f)](':');}if(autobio){if(autobio===![])return;let settingstatus=0x0;if(new Date()*0x1-settingstatus>0x3e8){let _uptime=process[_0x16e292(0x87)]()*0x3e8,uptimer=clockString(_uptime);await alpha[_0x16e292(0x78)](_0x16e292(0x77)+uptimer+_0x16e292(0x80)+status)[_0x16e292(0x7e)](_0x1ccda0=>_0x1ccda0),settingstatus=new Date()*0x1;}}
+function _0x5119(_0x5301ed,_0x4bdeff){const _0x4d484a=_0x4d48();return _0x5119=function(_0x5119ed,_0x514696){_0x5119ed=_0x5119ed-0x125;let _0x41233c=_0x4d484a[_0x5119ed];return _0x41233c;},_0x5119(_0x5301ed,_0x4bdeff);}function _0x4d48(){const _0x1136ef=['setStatus','4495827nZGfsy','padStart','floor','168TLrYoW','2504iOUJqx','4149wwROTc','I\x27m\x20Userbot\x20🤖\x20|\x20Runtime\x20','188nwguEu','1013965jKmium','\x20⏰\x20|\x20','4692908hxoDzf','map','2862520HmlZjX','uptime','9732cHnqXp','12oPpLUp','5517JzEqTI','toString'];_0x4d48=function(){return _0x1136ef;};return _0x4d48();}const _0x6d8bb3=_0x5119;(function(_0x4099c9,_0x45c9a3){const _0x65668d=_0x5119,_0x54f7ea=_0x4099c9();while(!![]){try{const _0x3b845d=-parseInt(_0x65668d(0x12d))/0x1*(parseInt(_0x65668d(0x12b))/0x2)+-parseInt(_0x65668d(0x136))/0x3*(-parseInt(_0x65668d(0x12f))/0x4)+parseInt(_0x65668d(0x130))/0x5*(-parseInt(_0x65668d(0x137))/0x6)+parseInt(_0x65668d(0x128))/0x7+-parseInt(_0x65668d(0x12c))/0x8*(-parseInt(_0x65668d(0x125))/0x9)+-parseInt(_0x65668d(0x134))/0xa+parseInt(_0x65668d(0x132))/0xb;if(_0x3b845d===_0x45c9a3)break;else _0x54f7ea['push'](_0x54f7ea['shift']());}catch(_0x43b3a5){_0x54f7ea['push'](_0x54f7ea['shift']());}}}(_0x4d48,0x5b088));function clockString(_0x34132c){const _0x2407a4=_0x5119;let _0x1d952b=isNaN(_0x34132c)?'--':Math['floor'](_0x34132c/0x36ee80),_0x1671d4=isNaN(_0x34132c)?'--':Math[_0x2407a4(0x12a)](_0x34132c/0xea60)%0x3c,_0x12ec2e=isNaN(_0x34132c)?'--':Math[_0x2407a4(0x12a)](_0x34132c/0x3e8)%0x3c;return[_0x1d952b,_0x1671d4,_0x12ec2e][_0x2407a4(0x133)](_0x5913d3=>_0x5913d3[_0x2407a4(0x126)]()[_0x2407a4(0x129)](0x2,0x0))['join'](':');}if(autobio){if(autobio===![])return;let settingstatus=0x0;if(new Date()*0x1-settingstatus>0x3e8){let _uptime=process[_0x6d8bb3(0x135)]()*0x3e8,uptimer=clockString(_uptime);await alpha[_0x6d8bb3(0x127)](_0x6d8bb3(0x12e)+uptimer+_0x6d8bb3(0x131)+status)['catch'](_0x731e31=>_0x731e31),settingstatus=new Date()*0x1;}}
 		mess = {
 			wait: '```[ ! ] Proses kak...```',
 			success: '```[ ✓ ]``` Success',
@@ -1401,7 +1389,7 @@ const bugtrol = {
        const ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net",   "remoteJid": "6289523258649-1604595598@g.us"  }, "message": {orderMessage: {itemCount: 2021,status: 200, thumbnail: fs.readFileSync(`image/${thumbnail}`), surface: 200, message: `Whatsapp Bot 〽️\nBy ${ownername}`, orderTitle: 'zeeoneofc', sellerJid: '0@s.whatsapp.net'}},contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
         const fdoc = {key : {participant : '0@s.whatsapp.net'},message: {documentMessage: {title: `${creator}`,jpegThumbnail: fs.readFileSync(`image/${thumbnail}`)}}}
         const fvn = {key: {participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "6289643739077-1613049930@g.us" } : {})},message: { "audioMessage": {"mimetype":"audio/ogg; codecs=opus","seconds":99999,"ptt": "true"}} } 
-        const fgif = {key: {participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "6289643739077-1613049930@g.us" } : {})},message: {"videoMessage": { "title":`${creator}`, "h": `Hmm`,'seconds': '99999', 'gifPlayback': 'true', 'caption': `Whatsapp Bot 〽️\nBy ${ownername}`, 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}
+        const fgif = {key: {participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "6289643739077-1613049930@g.us" } : {})},message: {"videoMessage": { "title":`${creator}`, "h": `Hmm`,'seconds': '99999', 'gifPlayback': 'true', 'caption': `${creator}`, 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}
 		const fgclink = {key: {participant: "0@s.whatsapp.net","remoteJid": "0@s.whatsapp.net"},"message": {"groupInviteMessage": {"groupJid": "6288213840883-1616169743@g.us","inviteCode": "m","groupName": "P", "caption": `さ ${pushname} さ\nᴄᴍᴅ ᴇxᴇᴄ : ${command}`, 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}
 		const fgclink2 = {key: {participant: "0@s.whatsapp.net","remoteJid": "0@s.whatsapp.net"},"message": {"groupInviteMessage": {"groupJid": "6288213840883-1616169743@g.us","inviteCode": "m","groupName": "P", "caption": `${fake}`, 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}
 		const fvideo = {key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "6289643739077-1613049930@g.us" } : {}) },message: { "videoMessage": { "title":`${creator}`, "h": `Hmm`,'seconds': '99999', 'caption': `${creator}`, 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}
@@ -1539,7 +1527,14 @@ console.log(e)
 })
 })
 }
-			
+			try{
+			hit_total = await fetchJson('https://api.countapi.xyz/hit/api-alphabot.herokuapp.com/visits')
+			} catch {
+				hit_total = { 
+					value : "-"
+					}
+				}
+				hitall = `${hit_total.value}`
 if(isGroup && !isVote) {
 if (budy.toLowerCase() === 'vote'){
 let vote = JSON.parse(fs.readFileSync(`./lib/${from}.json`))
@@ -1822,12 +1817,12 @@ const checkWin = (sender) => {
         }
      if (isGroup && isAntivirtex && !mek.key.fromMe && !isOwner) {
       if (budy.length > 1000) {
-        if (isGroupAdmins) return reply2("admin bebas");
+        if (isGroupAdmins) return reply("admin bebas");
         reply2("「 A N T I V I R T E X  D E T E C T E D 」 \n\nMaaf Kamu Akan Dikick");
         alpha.groupRemove(from, [sender]);
       }
     }
-    if (isGroup && !isCmd) {
+    if (isGroup && isRegister && !isCmd) {
 						const currentLevel = getLevelingLevel(sender)
 						const checkId = getLevelingId(sender)
 						try {
@@ -1839,7 +1834,7 @@ const checkWin = (sender) => {
 							if (requiredXp <= getLevelingXp(sender)) {
 								addLevelingLevel(sender, 1)
 								addBalance(sender, 30, balance)
-								await alpha.sendMessage(from, `* -----「 LEVEL UP 」-----*\n\n📛 *User :* ${pushname}\n🆔 *Nomer :* @${sender.split("@")[0]}\n📊 *Xp :* ${getLevelingXp(sender)}\n💹 *Level :* ${getLevel} > ${getLevelingLevel(sender)}\n💳 *Balance :* ${getBalance(sender, balance)}\n👛 *Dompet :* ${checkATMuser(sender)}\n✴️ *Role :* ${role}\n\nCongrats 🎉`,text, {quoted: mek, contextInfo: {"mentionedJid": [sender],"forwardingScore":999,"isForwarded":true},sendEphemeral: true })
+								await alpha.sendMessage(`* 「 LEVEL UP 」 *\n\n🎯 *User :* @${sender.split("@")[0]}\n🆔 *Nomer :* ${sender.split("@")[0]}\n📊 *Xp :* ${getLevelingXp(sender)}\n💹 *Level :* ${getLevel} > ${getLevelingLevel(sender)}\n💳 *Balance :* ${getBalance(sender, balance)}\n👛 *Dompet :* ${checkATMuser(sender)}\n📛 *Role :* ${role}\n\nCongrats 🎉`,text, {quoted: mek, contextInfo: {"mentionedJid": [sender],"forwardingScore":999,"isForwarded":true},sendEphemeral: true })
 								}
 							} catch (err) {
 								console.error(err)
@@ -1857,14 +1852,14 @@ if (asd.presences) {
      alpha.sendMessage(asd.jid, ckck.trim(), text, {thumbnail: fs.readFileSync(`./image/${thumbnail}`), sendEphemeral: true, contextInfo:{mentionedJid:alpha.parseMention(ckck)}})
                 }}}}})
 
-        if (isGroup && !mek.key.fromMe) {
+        if (isGroup) {
                 for (let ment of mentionUser) {
                     if (off.checkAfkUser(ment, _off)) {
                         getId = off.getAfkId(ment, _off)
                         getReason = off.getAfkReason(getId, _off)
                         getTime = Date.now() - off.getAfkTime(getId, _off)
                         heheh = ms(getTime)
-                        alpha.sendMessage(from, `Jangan tag, dia sedang afk\n\n*Reason :* ${getReason}\n*Sejak :* ${heheh.hours} jam, ${heheh.minutes} menit, ${heheh.seconds} detik yg lalu\n`,text, {quoted:mek})
+                        alpha.sendMessage(from, `Maaf pengguna nomor ${ment.split('@')[0]} sedang AFK\n\n*Reason :* ${getReason}\n*Sejak :* ${heheh.hours} jam, ${heheh.minutes} menit, ${heheh.seconds} detik yg lalu\n`,text, {quoted: mek})
                        // alpha.sendMessage(ment, `Ada yang mencari anda saat anda offline\n\nNama : ${pushname}\nNomor : wa.me/${sender.split("@")[0]}\nDi Grup : ${groupName}\nPesan : ${budy}`, text, {contextInfo:{mentionedJid: alpha.parseMention(budy)}})
                     }
                 }
@@ -1875,7 +1870,7 @@ if (asd.presences) {
                     heheh = ms(getTime)
                     _off.splice(off.getAfkPosition(sender, _off), 1)
                     fs.writeFileSync('./src/afk.json', JSON.stringify(_off))
-                    alpha.sendMessage(from, `@${sender.split('@')[0]} telah kembali dari afk\n\n*Reason :* ${getReason}\n*Selama :* ${heheh.hours} jam ${heheh.minutes} menit ${heheh.seconds} detik\n`, text, {contextInfo:{mentionedJid:[sender]}})
+                    alpha.sendMessage(from, `@${sender.split('@')[0]} telah kembali dari AFK\n\n*Reason :* ${getReason}\n*Selama :* ${heheh.hours} jam ${heheh.minutes} menit ${heheh.seconds} detik\n`, text, {contextInfo:{mentionedJid:[sender]}})
                 }
             }
 
@@ -1968,7 +1963,10 @@ let ii = []
 						giid.push(id)
 					}
 				}
-                const ini_gcchat = `${giid.length}`
+                const  timestampi = speed();
+				const  latensii = speed() - timestampi
+				const latensiii = `${latensii.toFixed(4)} _Second_`
+				const ini_gcchat = `${giid.length}`
 				const uptime = process.uptime()
 			    const tekss = `${kyun(uptime)}`
 			    const ini_totalchat = `${totalchat.length - giid.lenght}`
@@ -2006,153 +2004,57 @@ for (let i = 0; i < filter.length ; i++) {
       alpha.sendMessage(from, filter[i].Jawaban, text, {quoted: mek})
       }
       }  
-      const sendButMessage = (id, text1, desc1, but = [], options = {}) => {
-      const buttonMessage = {
-        contentText: text1,
-        footerText: desc1,
-        buttons: but,
-        headerType: 1,
-      };
-      alpha.sendMessage(id, buttonMessage, MessageType.buttonsMessage, options);
-    };
-
 // TEBAK GAMBAR
-if (tebakgambar.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
+if (tebakgambar.hasOwnProperty(sender.split('@')[0]) && !isCmd) {
                 jawaban = tebakgambar[sender.split('@')[0]]
                 if (budy.toLowerCase() == jawaban) {
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `tebakgambar`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
+                    reply("Selamat🥳 Jawaban kamu benar!")
                     delete tebakgambar[sender.split('@')[0]]
                     fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
                 } else {
-                    reply2("Jawaban Salah!")
-                }
-            }
- // SIAPA AKU
-if (siapakahaku.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
-                jawaban = siapakahaku[sender.split('@')[0]]
-                if (budy.toLowerCase() == jawaban) {
-                    delete siapakahaku[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `siapakahaku`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
-                    fs.writeFileSync("./database/siapakahaku.json", JSON.stringify(siapakahaku))
-                } else {
-                    reply2("Jawaban Salah!")
-                }
-            }
-// TEBAK KALIMAT
-if (tebakkalimat.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
-                jawaban = tebakkalimat[sender.split('@')[0]]
-                if (budy.toLowerCase() == jawaban) {
-                     delete tebakkalimat[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `tebakkalimat`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
-                    fs.writeFileSync("./database/tebakkalimat.json", JSON.stringify(tebakkalimat))
-                } else {
-                    reply2("Jawaban Salah!")
-                }
-            }
-// TEBAK KALIMAT
-if (tebakkata.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
-                jawaban = tebakkata[sender.split('@')[0]]
-                if (budy.toLowerCase() == jawaban) {
-                    delete tebakkata[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `tebakkata`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
-                    fs.writeFileSync("./database/tebakkata.json", JSON.stringify(tebakkata))
-                } else {
-                    reply2("Jawaban Salah!")
-                }
-            }
-// TEBAK LIRIK
-if (tebaklirik.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
-                jawaban = tebaklirik[sender.split('@')[0]]
-                if (budy.toLowerCase() == jawaban) {
-                    delete tebaklirik[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `tebaklirik`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
-                    fs.writeFileSync("./database/tebaklirik.json", JSON.stringify(tebaklirik))
-                } else {
-                    reply2("Jawaban Salah!")
-                }
-            }
-// TEKA TEKI
-if (tekateki.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
-                jawaban = tekateki[sender.split('@')[0]]
-                if (budy.toLowerCase() == jawaban) {
-                    delete tekateki[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `tekateki`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
-                    fs.writeFileSync("./database/tekateki.json", JSON.stringify(tekateki))
-                } else {
-                    reply2("Jawaban Salah!")
-                }
-            }
-// SUSUN KATA
-if (susunkata.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
-                jawaban = susunkata[sender.split('@')[0]]
-                if (budy.toLowerCase() == jawaban) {
-                    delete susunkata[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `susunkata`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
-                    fs.writeFileSync("./database/susunkata.json", JSON.stringify(susunkata))
-                } else {
-                    reply2("Jawaban Salah!")
+                    reply("Jawaban Salah!")
                 }
             }
 // CAK LONTONG
-if (caklontong.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
+if (caklontong.hasOwnProperty(sender.split('@')[0]) && !isCmd) {
                 jawaban = caklontong[sender.split('@')[0]]
                 if (budy.toLowerCase() == jawaban) {
+                    reply("Selamat🥳 Jawaban kamu benar")
                     delete caklontong[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `caklontong`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
                     fs.writeFileSync("./database/caklontong.json", JSON.stringify(caklontong))
                 } else {
-                    reply2("Jawaban Salah!")
+                    reply("Jawaban Salah!")
                 }
             }
 // FAMILY 100
-if (family.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
+if (family.hasOwnProperty(sender.split('@')[0]) && !isCmd) {
                 jawaban = family[sender.split('@')[0]]
                 if (budy.toLowerCase() == jawaban) {
+                    reply("Selamat🥳 Jawaban kamu benar")
                     delete family[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `family100`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
                     fs.writeFileSync("./database/family100.json", JSON.stringify(family))
                 } else {
-                    reply2("Jawaban Salah!")
+                    reply("Jawaban Salah!")
                 }
             }
 // TEBAK ANIME
-if (tebakanime.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe) {
+if (tebakanime.hasOwnProperty(sender.split('@')[0]) && !isCmd) {
                 jawaban = tebakanime[sender.split('@')[0]]
                 if (budy.toLowerCase() == jawaban) {
-                     delete tebakanime[sender.split('@')[0]]
-                    sendButMessage(from, "Selamat🥳 Jawaban kamu benar!\n\n🎁 + Exp 500\n💰 + Balance $10", `© ${botname} | ${ownername}`, [{"buttonId": `tebakanime`,"buttonText": {"displayText": "Main Lagi"},"type": "RESPONSE"}], {quoted : mek})
-                    addBalance(sender, 10, balance)
-                    addLevelingXp(sender, 500)
+                    reply("Selamat🥳 Jawaban kamu benar")
+                    delete tebakanime[sender.split('@')[0]]
                     fs.writeFileSync("./database/tebakanime.json", JSON.stringify(tebakanime))
                 } else {
-                    reply2("Jawaban Salah!")
+                    reply("Jawaban Salah!")
                 }
             }
             if (isCmd && msgFilter.isFiltered(from) && !isGroup) {
 						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', timuu, color(command), 'from', color(pushname), 'in Private', 'args :', color(args.length))
-						return reply2('Don`t Spam, 3 seconds per command')
+						return reply('Don`t Spam, 5 seconds per command')
 						} 
 					if (isCmd && msgFilter.isFiltered(from) && isGroup) {
 						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', timuu, color(command), 'from', color(pushname), 'in', color(groupName), 'args :', color(args.length))
-						return reply2('Don`t Spam, 3 seconds per command')
+						return reply('Don`t Spam, 5 seconds per command')
 					}
            ////   
 //========================================================================================================================//
@@ -2167,7 +2069,9 @@ if (tebakanime.hasOwnProperty(sender.split('@')[0]) && !isCmd && !mek.key.fromMe
 		console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', timuu, color(command), 'from', color(pushname), 'in', color(groupName), 'args :', color(args.length))
 		addBalance(sender, randomNomor(20), balance)
 			}	
-			
+            //await alpha.updatePresence(from, Presence.recording)
+            //await alpha.updatePresence(from, Presence.composing)
+        
 switch (command) {
 	case 'tes':
 	reply('Subscribe om / tante https://youtube.com/c/ZEEONEOFC 🎀')
